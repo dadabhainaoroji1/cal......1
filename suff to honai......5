@@ -1,0 +1,119 @@
+#include<ctype.h>
+
+#include <stdio.h>
+
+float stack[20];
+
+int top=-1;
+
+float eval_postfix(char[]);
+
+void push(float);
+
+float pop();
+
+main()
+
+{
+
+char postfix[20];
+float result;
+printf("enter postfix expr\n");
+scanf("%s", postfix);
+result=eval_postfix(postfix);
+printf("The result = %f\n",result);
+}
+float eval_postfix(char postfix[])
+{
+int i=0,k;
+char ch,op1,op2;
+float res;
+while(postfix[i]!='\0')
+{
+ch=postfix[i];
+if(isdigit(ch))
+{
+k=ch-'0';
+push(k);
+}
+else
+{
+op2=pop();
+op1=pop();
+switch(ch)
+{
+case '+':push(op1+op2);
+break;
+case '-':push(op1-op2);
+break;
+case '*':push(op1*op2);
+break;
+case '/':push(op1/op2);
+break;
+case '^':push(pow(op1,op2));
+break;
+default :printf("illegal\n");
+exit(0);
+}
+}
+i++;
+}
+res=pop();
+if(top!=-1)
+{
+printf("not a valid expression");
+exit(1);
+}
+return(res);
+}
+void push(float num)
+{
+top++;
+stack[top]=num;
+return;
+}
+float pop()
+{
+float num;
+if(top == -1)
+{
+printf("not a valid");
+exit(0);
+}
+else
+{
+num=stack[top];
+top--;
+return(num);
+}
+}
+
+
+
+
+
+
+
+
+#include <stdio.h>
+void towers(int, char, char, char);
+int main()
+{
+int num;
+printf("Enter the number of disks : ");
+scanf("%d", &num);
+printf("The sequence of moves involved in the Tower of Hanoi are :\n");
+towers(num, 'A', 'C', 'B');
+return 0;
+}
+void towers(int num, char frompeg, char topeg, char auxpeg)
+{
+if (num == 1)
+{
+printf("\n Move disk 1 from peg %c to peg %c", frompeg, topeg);
+return;
+}
+towers(num - 1, frompeg, auxpeg, topeg);
+printf("\n Move disk %d from peg %c to peg %c", num, frompeg, topeg);
+towers(num - 1, auxpeg, topeg, frompeg);
+}
