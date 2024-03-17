@@ -1,0 +1,50 @@
+
+#include<stdio.h>
+int a[20][20],n,i,j,visited[20],count;
+
+void dfs(int v)
+{
+int i;
+visited[v]=1;
+for(i=1;i<=n;i++)
+{
+if(a[v][i] && !visited[i])
+{
+printf("\n %d->%d",v,i);
+count++;
+dfs(i);
+}
+}
+}
+void main()
+{
+int v, choice;
+printf("\n Enter the number of cities: ");
+scanf("%d",&n);
+printf("\n Enter graph data in matrix form:\n");
+for(i=1;i<=n;i++)
+for(j=1;j<=n;j++)
+scanf("%d",&a[i][j]);
+while(1)
+{
+printf("\n1.Test for connectivity") ;
+ printf("\n2.Exit");
+printf("\nEnter Your Choice: ");
+scanf("%d",&choice);
+switch(choice)
+{
+ case 1: for(i=1;i<=n;i++){
+ visited[i]=0;}
+printf("ENTER the source vertex");
+ scanf("%d",&v);
+ dfs(v);
+ if(count==n-1)
+ printf("\nGraph is connected\n");
+ else
+ printf("\n Graph is not connected");
+ count=0;
+ break;
+ case 3:return;
+ default:printf("\nEnter proper Choice");
+}
+}}
